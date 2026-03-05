@@ -1,0 +1,206 @@
+body {
+    background-color: #0f0c29;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.casino-container {
+    display: flex;
+    background: #24243e;
+    border-radius: 15px;
+    box-shadow: 0 0 30px rgba(255, 0, 150, 0.4);
+    overflow: hidden;
+    width: 800px;
+    max-width: 95%;
+}
+
+.character-panel {
+    width: 40%;
+    background: #1f1c2c;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-right: 2px solid #ff007f;
+}
+
+#character-image {
+    width: 100%;
+    max-width: 250px;
+    border-radius: 10px;
+    filter: drop-shadow(0 0 10px #ff007f);
+    object-fit: cover;
+}
+
+#character-dialogue {
+    margin-top: 20px;
+    font-style: italic;
+    color: #ff99cc;
+    text-align: center;
+    min-height: 40px;
+}
+
+.game-panel {
+    width: 60%;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+h2 {
+    margin: 0;
+    color: #ff007f;
+}
+
+.balance-container {
+    display: flex;
+    align-items: center;
+}
+
+.balance-text {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #ffd700;
+}
+
+.deposit-btn {
+    background: #28a745;
+    font-size: 0.9rem;
+    padding: 5px 10px;
+    margin-left: 15px;
+    border-radius: 5px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.deposit-btn:hover {
+    background: #218838;
+}
+
+.slot-machine {
+    display: flex;
+    gap: 15px;
+    background: #111;
+    padding: 20px;
+    border-radius: 10px;
+    border: 3px solid #7928ca;
+    margin-bottom: 30px;
+}
+
+.slot {
+    width: 80px;
+    height: 80px;
+    background: #222;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+}
+
+.controls-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.quick-bets {
+    display: flex;
+    gap: 8px;
+}
+
+.quick-btn {
+    background: #444;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.quick-btn:hover {
+    background: #666;
+}
+
+.controls {
+    display: flex;
+    gap: 10px;
+}
+
+input {
+    padding: 10px;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    border: none;
+    width: 100px;
+    text-align: center;
+    -moz-appearance: textfield;
+}
+
+input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+button#spin-btn {
+    padding: 10px 30px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    background: #ff007f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    transition: 0.2s;
+}
+
+button#spin-btn:hover {
+    background: #cc0066;
+}
+
+button#spin-btn:disabled {
+    background: #555;
+    cursor: not-allowed;
+}
+
+.message {
+    font-size: 1.2rem;
+    height: 30px;
+    text-align: center;
+}
+
+.win-text {
+    color: #00ff00;
+    font-weight: bold;
+}
+
+.lose-text {
+    color: #ff3333;
+}
