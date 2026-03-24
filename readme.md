@@ -1,8 +1,7 @@
 <div align="center">
-  <img src="public/banner.png" alt="Anime Casino Banner" width="100%" />
-
   <h1>🎰 Anime Casino</h1>
-  <p>Симулятора ігрового автомата з кастомним генератором випадкових чисел.</p>
+  
+  <p>Симулятор ігрового автомата з кастомним генератором випадкових чисел.</p>
 
   <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" />
   <img src="https://img.shields.io/badge/Fastify-000000?style=for-the-badge&logo=fastify&logoColor=white" />
