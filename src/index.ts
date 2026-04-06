@@ -42,7 +42,7 @@ fastify.post('/api/spin', async (request, reply) => {
 
     let win = 0;
     if (result[0] === result[1] && result[1] === result[2]) {
-        win = numericBet * 10; // Множимо ставку на 10
+        win = numericBet * 10;
         userBalance += win;
     }
 
@@ -53,7 +53,6 @@ fastify.post('/api/spin', async (request, reply) => {
     };
 });
 
-// Запуск сервера
 const start = async () => {
     try {
         await fastify.listen({ port: 3000 });
