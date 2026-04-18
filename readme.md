@@ -1,7 +1,7 @@
 <div align="center">
   <h1>🎰 Anime Casino</h1>
   
-  <p>Симулятор ігрового автомата з кастомним генератором випадкових чисел.</p>
+  <p>Симулятор ігрового автомата з кастомним генератором випадкових чисел!</p>
 
   <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" />
   <img src="https://img.shields.io/badge/Fastify-000000?style=for-the-badge&logo=fastify&logoColor=white" />
@@ -36,7 +36,8 @@
 4. **Запусти сервер у режимі розробки:**
 `npm run dev`
 
-5. Відкрий браузер за адресою http://localhost:3000
+5. **Відкрий браузер за адресою:** 
+`http://localhost:3000`
 
 ## Структура проекту
 - `public/` - Фронтенд (HTML, CSS, JS) та тимчасово фото
