@@ -6,7 +6,7 @@ const fastify = Fastify({ logger: true });
 
 fastify.register(fastifyStatic, {
     root: path.join(__dirname, '../public'),
-    prefix: '/', 
+    prefix: '/',
 });
 
 const symbols = ['🍒', '💎', '🔔', '7️⃣'];
@@ -38,17 +38,24 @@ fastify.post('/api/spin', async (request, reply) => {
 
     userBalance -= numericBet;
 
-    const result = [slots.next().value, slots.next().value, slots.next().value];
+    const results = [
+        slots.next().value as string,
+        slots.next().value as string,
+        slots.next().value as string
+    ];
 
-    let win = 0;
-    if (result[0] === result[1] && result[1] === result[2]) {
-        win = numericBet * 10;
-        userBalance += win;
+    let winAmount = 0;
+    if (results[0] === results[1] && results[1] === results[2]) {
+        winAmount = numericBet * 10;
+    } else if (results[0] === results[1] || results[1] === results[2] || results[0] === results[2]) {
+        winAmount = numericBet * 2;
     }
 
+    userBalance += winAmount;
+
     return {
-        result,
-        win,
+        result: results,
+        win: winAmount,
         newBalance: userBalance
     };
 });
@@ -56,11 +63,10 @@ fastify.post('/api/spin', async (request, reply) => {
 const start = async () => {
     try {
         await fastify.listen({ port: 3000 });
-        console.log(`[server]: Сервер Fastify успішно запущено на http://localhost:3000`);
+        console.log('Гамселеться в туз на http://localhost:3000');
     } catch (err) {
         fastify.log.error(err);
         process.exit(1);
     }
 };
-
 start();
