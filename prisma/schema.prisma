@@ -1,0 +1,29 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  password  String   
+  balance   Int      @default(1000) 
+  createdAt DateTime @default(now())
+  
+  bets      BetHistory[]
+}
+
+model BetHistory {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  game      String   
+  betAmount Int      
+  winAmount Int      
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id])
+}
