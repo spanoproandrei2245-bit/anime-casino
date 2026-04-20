@@ -1,11 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Авторизація</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="lobby-body">
+    <div class="lobby-container auth-container">
+        <h1 class="lobby-title" id="auth-title">Вхід</h1>
+
+        <form id="auth-form" class="auth-form">
+            <input type="text" id="username" placeholder="Нікнейм" required autocomplete="username">
+            <input type="password" id="password" placeholder="Пароль" required autocomplete="current-password">
+            <button type="submit" class="play-btn" id="submit-btn">Увійти</button>
+        </form>
+
+        <p class="auth-switch">
+            <span id="switch-text">Ще немає акаунта?</span> 
+            <a href="#" id="switch-mode">Зареєструватися</a>
+        </p>
+        
+        <div id="auth-message" class="auth-message"></div>
+        <br>
+        <a href="index.html" class="play-btn" style="background: #555;">Повернутися в лобі</a>
+    </div>
     
+    <script src="js/auth.js"></script>
 </body>
 </html>

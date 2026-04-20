@@ -204,3 +204,50 @@ button#spin-btn:disabled {
 .lose-text {
     color: #ff3333;
 }
+
+.auth-container {
+     max-width: 400px;
+}
+
+.auth-form { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 15px; 
+    width: 100%; 
+    margin-top: 20px;
+}
+
+.auth-form input { 
+    padding: 15px; 
+    border-radius: 8px; 
+    border: 2px solid #7928ca; 
+    background: #24243e; 
+    color: white; 
+    font-size: 1rem; 
+    outline: none;
+    transition: 0.3s;
+}
+
+.auth-form input:focus { 
+    border-color: #ff007f;
+    box-shadow: 0 0 10px rgba(255, 0, 127, 0.3); 
+}
+
+.auth-switch { 
+    margin-top: 15px; 
+    font-size: 1rem; 
+}
+
+.auth-switch a { 
+    color: #ff007f; 
+    text-decoration: none; 
+    font-weight: bold;
+}
+
+.auth-message { 
+    margin-top: 15px;
+    font-weight: bold; 
+    text-align: center; 
+    height: 20px; 
+    font-size: 1.1rem;
+}
