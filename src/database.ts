@@ -1,4 +1,3 @@
-export const db = {
-    users: [],
-    history: []
-};
+import { PrismaClient } from '@prisma/client';
+
+export const prisma = new PrismaClient();
