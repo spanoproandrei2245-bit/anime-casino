@@ -4,8 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Головна сторінка</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    
+    <div id="player-hud" class="player-hud" style="display: none;">
+        <div class="hud-info">
+            <span id="hud-username" class="hud-username">Player</span>
+            <span class="hud-balance"><span id="hud-balance-val">0</span> Деньгі тачкі
+        </div>
+        <button id="logout-btn" class="hud-logout">Вийти</button>
+    </div>
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const token = localStorage.getItem('token');
+            const username = localStorage.getItem('username');
+            const balance = localStorage.getItem('balance');
+
+            if (token && username) {
+                document.getElementById('player-hud').style.display = 'flex';
+                document.getElementById('hud-username').textContent = username;
+                document.getElementById('hud-balance-val').textContent = balance || '1000';
+            }
+
+            document.getElementById('logout-btn')?.addEventListener('click', () => {
+                localStorage.clear();
+                window.location.reload();
+            });
+        });
+    </script>
 </body>
 </html>

@@ -47,6 +47,9 @@ authForm.addEventListener('submit', async (e) => {
             authMessage.textContent = 'Успішний вхід! Завантаження...';
             localStorage.setItem('token', data.token);
             localStorage.setItem('username', data.username);
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('username', data.username);
+            localStorage.setItem('balance', data.balance);
             
             setTimeout(() => { window.location.href = 'index.html'; }, 1000);
         } else {
