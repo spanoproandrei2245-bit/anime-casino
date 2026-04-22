@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "ts-node-dev src/server.ts",
-    "build:front": "tsc public/ts/auth.ts --outDir public/js --watch --ignoreConfig"
+    "build:front": "tsc public/ts/auth.ts public/ts/slots.ts --outDir public/js --watch --ignoreConfig"
   },
   "keywords": [],
   "author": "",

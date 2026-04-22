@@ -7,6 +7,15 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <div id="player-hud" class="player-hud" style="display: none;">
+        <div class="hud-info">
+            <span id="hud-username" class="hud-username">Player</span>
+            <span class="hud-balance"><span id="hud-balance-val">0</span> 💎</span>
+        </div>
+        <button id="logout-btn" class="hud-logout">Вийти</button>
+    </div>
+
+    <a href="index.html" style="position: absolute; top: 20px; left: 20px; color: #ff007f; text-decoration: none; font-weight: bold; font-family: sans-serif; border: 2px solid #ff007f; padding: 8px 16px; border-radius: 8px; transition: 0.3s;" onmouseover="this.style.background='#ff007f'; this.style.color='#fff'" onmouseout="this.style.background='transparent'; this.style.color='#ff007f'">⬅ В лобі</a>
     <div class="casino-container">
         <div class="character-panel">
             <img id="character-image" src="img/anime.png" alt="Аніме персонаж">
@@ -45,6 +54,26 @@
         </div>
     </div>
 
-    <script src="js/script.js"></script>
+   <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const token = localStorage.getItem('token');
+            const username = localStorage.getItem('username');
+            const balance = localStorage.getItem('balance');
+
+            if (token && username) {
+                document.getElementById('player-hud').style.display = 'flex';
+                document.getElementById('hud-username').textContent = username;
+                document.getElementById('hud-balance-val').textContent = balance || '1000';
+            } else {
+                window.location.href = 'auth.html';
+            }
+
+            document.getElementById('logout-btn')?.addEventListener('click', () => {
+                localStorage.clear(); 
+                window.location.href = 'auth.html';
+            });
+        });
+    </script>
+    <script src="js/slots.js"></script>
 </body>
 </html>
