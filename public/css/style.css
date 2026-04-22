@@ -252,7 +252,6 @@ button#spin-btn:disabled {
     font-size: 1.1rem;
 }
 
-/* --- СТИЛІ АВТОРИЗАЦІЇ (NEON & GLASSMORPHISM) --- */
 .auth-container { 
     max-width: 400px; 
     background: rgba(20, 20, 35, 0.7);
@@ -282,7 +281,6 @@ button#spin-btn:disabled {
 .auth-switch a { color: #deff9a; text-decoration: none; font-weight: bold; transition: 0.3s; }
 .auth-switch a:hover { color: #ff007f; text-shadow: 0 0 8px rgba(255,0,127,0.6); }
 
-/* --- СТИЛІ HUD (ПАНЕЛЬ ГРАВЦЯ) --- */
 .player-hud {
     position: absolute;
     top: 20px;
@@ -330,4 +328,76 @@ button#spin-btn:disabled {
     background: #ff007f;
     color: #fff;
     box-shadow: 0 0 15px rgba(255, 0, 127, 0.6);
+}
+.lobby-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding-top: 60px; /* Відступ від HUD */
+}
+
+.lobby-title {
+    font-size: 3rem;
+    color: #ff007f;
+    text-shadow: 0 0 15px rgba(255, 0, 127, 0.5);
+    margin-bottom: 40px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.game-cards {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.game-card {
+    background: rgba(20, 20, 35, 0.6);
+    border: 2px solid #7928ca;
+    border-radius: 16px;
+    padding: 40px 20px;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    width: 280px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 20px rgba(121, 40, 202, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+.game-card:hover {
+    transform: translateY(-10px);
+    border-color: #ff007f;
+    box-shadow: 0 15px 30px rgba(255, 0, 127, 0.4);
+}
+
+.game-card .game-icon {
+    font-size: 4rem;
+    margin-bottom: 15px;
+}
+
+.game-card h2 {
+    color: #deff9a;
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+}
+
+.game-card p {
+    color: #ccd6f6;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.game-card.locked {
+    opacity: 0.5;
+    cursor: not-allowed;
+    border-color: #555;
+}
+.game-card.locked:hover {
+    transform: none;
+    box-shadow: none;
+    border-color: #555;
 }
