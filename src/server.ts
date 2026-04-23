@@ -6,14 +6,15 @@ import jwt from 'jsonwebtoken';
 import { prisma } from './database';
 
 const fastify = Fastify({ logger: true });
-
 const JWT_SECRET = 'super-secret-anime-key-123'; 
 
+// Роздача фронтенду
 fastify.register(fastifyStatic, {
     root: path.join(__dirname, '../public'),
     prefix: '/',
 });
 
+// 1. РЕЄСТРАЦІЯ
 fastify.post('/api/register', async (request, reply) => {
     const { username, password } = request.body as any;
 
@@ -38,6 +39,7 @@ fastify.post('/api/register', async (request, reply) => {
     return { success: true, message: 'Реєстрація успішна!' };
 });
 
+// 2. ЛОГІН
 fastify.post('/api/login', async (request, reply) => {
     const { username, password } = request.body as any;
 
@@ -65,14 +67,79 @@ fastify.post('/api/login', async (request, reply) => {
     };
 });
 
-const symbols = ['🍒', '💎', '🔔', '7️⃣'];
-function* slotGenerator() {
-    while (true) {
-        yield symbols[Math.floor(Math.random() * symbols.length)];
+// 3. СПІН ДЛЯ СЛОТІВ
+fastify.post('/api/spin', async (request, reply) => {
+    const authHeader = request.headers.authorization;
+    if (!authHeader) return reply.status(401).send({ error: 'Не авторизовано!' });
+    
+    const token = authHeader.replace('Bearer ', '');
+    let decoded;
+    try {
+        decoded = jwt.verify(token, JWT_SECRET) as any;
+    } catch (err) {
+        return reply.status(401).send({ error: 'Недійсний токен!' });
     }
-}
-const slots = slotGenerator();
 
+    const betAmount = Number((request.body as any).bet);
+    if (!betAmount || betAmount <= 0) return reply.status(400).send({ error: 'Невірна ставка' });
+
+    const user = await prisma.user.findUnique({ where: { id: decoded.userId } });
+    if (!user || user.balance < betAmount) {
+        return reply.status(400).send({ error: 'Недостатньо монет!' });
+    }
+
+    const symbols = ['🍒', '💎', '🔔', '7️⃣'];
+    const result = [
+        symbols[Math.floor(Math.random() * symbols.length)],
+        symbols[Math.floor(Math.random() * symbols.length)],
+        symbols[Math.floor(Math.random() * symbols.length)]
+    ];
+
+    let multiplier = 0;
+    if (result[0] === result[1] && result[1] === result[2]) {
+        if (result[0] === '7️⃣') multiplier = 10;
+        else if (result[0] === '💎') multiplier = 5;
+        else multiplier = 3;
+    }
+
+    const winAmount = Math.floor(betAmount * multiplier);
+    const newBalance = user.balance - betAmount + winAmount;
+
+    await prisma.user.update({
+        where: { id: user.id },
+        data: { balance: newBalance }
+    });
+
+    return { success: true, result, winAmount, newBalance };
+});
+
+// 4. ДОДЕП БАЛАНСУ
+fastify.post('/api/deposit', async (request, reply) => {
+    const authHeader = request.headers.authorization;
+    if (!authHeader) return reply.status(401).send({ error: 'Не авторизовано!' });
+    
+    const token = authHeader.replace('Bearer ', '');
+    let decoded;
+    try {
+        decoded = jwt.verify(token, JWT_SECRET) as any;
+    } catch (err) {
+        return reply.status(401).send({ error: 'Недійсний токен!' });
+    }
+
+    const user = await prisma.user.findUnique({ where: { id: decoded.userId } });
+    if (!user) return reply.status(404).send({ error: 'Гравця не знайдено' });
+
+    const newBalance = user.balance + 500;
+
+    await prisma.user.update({
+        where: { id: user.id },
+        data: { balance: newBalance }
+    });
+
+    return { success: true, newBalance };
+});
+
+// Запуск сервера
 const start = async () => {
     try {
         await fastify.listen({ port: 3000 });

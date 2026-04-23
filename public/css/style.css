@@ -277,9 +277,20 @@ button#spin-btn:disabled {
     border-color: #ff007f; 
     box-shadow: 0 0 15px rgba(255, 0, 127, 0.4), inset 0 0 10px rgba(0,0,0,0.5); 
 }
-.auth-switch { margin-top: 20px; font-size: 1rem; color: #ccd6f6; }
-.auth-switch a { color: #deff9a; text-decoration: none; font-weight: bold; transition: 0.3s; }
-.auth-switch a:hover { color: #ff007f; text-shadow: 0 0 8px rgba(255,0,127,0.6); }
+.auth-switch { 
+    margin-top: 20px;
+    font-size: 1rem; 
+    color: #ccd6f6; }
+.auth-switch a { 
+    color: #deff9a; 
+    text-decoration: none; 
+    font-weight: bold; 
+    transition: 0.3s; 
+}
+
+.auth-switch a:hover { 
+    color: #ff007f; 
+    text-shadow: 0 0 8px rgba(255,0,127,0.6); }
 
 .player-hud {
     position: absolute;
