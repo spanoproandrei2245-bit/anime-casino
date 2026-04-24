@@ -412,3 +412,9 @@ button#spin-btn:disabled {
     box-shadow: none;
     border-color: #555;
 }
+
+.leaderboard-section { width: 100%; max-width: 600px; margin: 0 auto; padding-bottom: 50px; }
+.leaderboard-table { width: 100%; border-collapse: collapse; background: rgba(20, 20, 35, 0.6); backdrop-filter: blur(10px); border-radius: 12px; overflow: hidden; border: 1px solid #7928ca; box-shadow: 0 0 20px rgba(121, 40, 202, 0.2); }
+.leaderboard-table th, .leaderboard-table td { padding: 15px; text-align: left; border-bottom: 1px solid rgba(121, 40, 202, 0.3); }
+.leaderboard-table th { background: rgba(121, 40, 202, 0.5); color: #deff9a; text-transform: uppercase; }
+.leaderboard-table tr:hover { background: rgba(255, 0, 127, 0.1); }
