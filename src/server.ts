@@ -1,3 +1,4 @@
+import { GameEngine } from './engine';
 import Fastify from 'fastify';
 import fastifyStatic from '@fastify/static';
 import path from 'path';
@@ -115,15 +116,7 @@ fastify.post('/api/spin', { preHandler: [authProxy] }, async (request: any, repl
     if (!user || user.balance < betAmount) return reply.status(400).send({ error: 'Not enough coins' });
 
     const result = [reel.next().value, reel.next().value, reel.next().value];
-    let multiplier = 0;
-    
-    if (result[0] === result[1] && result[1] === result[2]) {
-        if (result[0] === '7️⃣') multiplier = 10;
-        else if (result[0] === '💎') multiplier = 5;
-        else multiplier = 3;
-    }
-
-    const winAmount = Math.floor(betAmount * multiplier);
+    const winAmount = await GameEngine.calculateWin(betAmount, result as string[]);
     const newBalance = user.balance - betAmount + winAmount;
 
     await prisma.user.update({
@@ -131,7 +124,7 @@ fastify.post('/api/spin', { preHandler: [authProxy] }, async (request: any, repl
         data: { balance: newBalance }
     });
 
-    if (multiplier >= 5) casinoEvents.emit('jackpot', user.username, winAmount);
+    if (winAmount >= betAmount * 5) casinoEvents.emit('jackpot', user.username, winAmount);
 
     return { success: true, result, winAmount, newBalance };
 });
