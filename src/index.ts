@@ -56,7 +56,7 @@ fastify.post('/api/spin', async (request, reply) => {
 const start = async () => {
     try {
         await fastify.listen({ port: 3000 });
-        console.log(`[server]: Сервер Fastify успішно запущено на http://localhost:3000`);
+        console.log(`[server]: Шишка встала, сервер запустився: http://localhost:3000`);
     } catch (err) {
         fastify.log.error(err);
         process.exit(1);
