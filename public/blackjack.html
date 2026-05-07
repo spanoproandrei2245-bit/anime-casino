@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Блекджек - НТУУ КазиноПІ</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="player-hud" class="player-hud">
+        <div class="hud-info">
+            <span id="hud-username" class="hud-username">Адмін</span>
+            <span class="hud-balance"><span id="hud-balance-val">0</span> 💎</span>
+        </div>
+        <button id="logout-btn" class="hud-logout">Вийти</button>
+    </div>
+
+    <a href="index.html" class="back-to-lobby-btn">⬅ В ЛОБІ</a>
+
+    <div class="casino-container" style="width: 700px;">
+        <div class="game-panel bj-full-panel">
+            
+            <div class="bj-row-header">
+                <h2 class="bj-text-title">БЛЕКДЖЕК</h2>
+                <div class="bj-text-balance">БАЛАНС: <span id="balance">...</span> 💎</div>
+            </div>
+
+            <div class="bj-dep-block">
+                <button id="deposit-btn" class="quick-btn bj-dep-btn">Хочу додеп</button>
+            </div>
+
+            <div class="bj-scores-container">
+                <div class="bj-score-box">
+                    <h3 class="bj-score-title">Твої бали</h3>
+                    <div id="player-score" class="score-number">?</div>
+                </div>
+                <div class="bj-score-divider"></div>
+                <div class="bj-score-box">
+                    <h3 class="bj-score-title">Дилер</h3>
+                    <div id="dealer-score" class="score-number">?</div>
+                </div>
+            </div>
+
+            <div class="bj-controls-area">
+                <div class="quick-bets" style="margin-bottom: 20px;">
+                    <button class="quick-btn bj-quick-bet" data-amount="25">+25</button>
+                    <button class="quick-btn bj-quick-bet" data-amount="50">+50</button>
+                    <button class="quick-btn bj-quick-bet" data-amount="75">+75</button>
+                    <button class="quick-btn bj-quick-bet" data-amount="100">+100</button>
+                </div>
+
+                <div class="bj-input-group">
+                    <input type="number" id="bet-amount" class="bj-input" value="100">
+                    <button id="play-btn" class="bj-btn">ГРАТИ</button>
+                </div>
+                <div id="message" class="message">Роби ставку!</div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="js/blackjack.js"></script>
+</body>
+</html>

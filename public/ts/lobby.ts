@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 tr.innerHTML = `
                     <td>#${index + 1}</td>
                     <td style="font-weight: bold; color: #fff;">${player.username}</td>
-                    <td style="color: #deff9a;">${player.balance} 💎</td>
+                    <td style="color: #deff9a;">${player.balance} 💸</td>
                 `;
                 tbody.appendChild(tr);
             });

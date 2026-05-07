@@ -1,11 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
+
 body {
     background-color: #0f0c29;
     color: white;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Montserrat', sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     margin: 0;
 }
 
@@ -52,6 +54,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    box-sizing: border-box;
 }
 
 header {
@@ -76,23 +79,6 @@ h2 {
     font-weight: bold;
     font-size: 1.2rem;
     color: #ffd700;
-}
-
-.deposit-btn {
-    background: #28a745;
-    font-size: 0.9rem;
-    padding: 5px 10px;
-    margin-left: 15px;
-    border-radius: 5px;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-weight: bold;
-    transition: 0.2s;
-}
-
-.deposit-btn:hover {
-    background: #218838;
 }
 
 .slot-machine {
@@ -124,31 +110,6 @@ h2 {
     margin-bottom: 20px;
 }
 
-.quick-bets {
-    display: flex;
-    gap: 8px;
-}
-
-.quick-btn {
-    background: #444;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: 0.2s;
-}
-
-.quick-btn:hover {
-    background: #666;
-}
-
-.controls {
-    display: flex;
-    gap: 10px;
-}
-
 input {
     padding: 10px;
     font-size: 1.2rem;
@@ -159,12 +120,7 @@ input {
     -moz-appearance: textfield;
 }
 
-input::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-input::-webkit-inner-spin-button {
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
@@ -181,149 +137,58 @@ button#spin-btn {
     transition: 0.2s;
 }
 
-button#spin-btn:hover {
-    background: #cc0066;
-}
+button#spin-btn:hover { background: #cc0066; }
+button#spin-btn:disabled { background: #555; cursor: not-allowed; }
 
-button#spin-btn:disabled {
-    background: #555;
-    cursor: not-allowed;
-}
+.message { font-size: 1.2rem; height: 30px; text-align: center; }
+.win-text { color: #00ff00; font-weight: bold; }
+.lose-text { color: #ff3333; }
 
-.message {
-    font-size: 1.2rem;
-    height: 30px;
-    text-align: center;
-}
-
-.win-text {
-    color: #00ff00;
-    font-weight: bold;
-}
-
-.lose-text {
-    color: #ff3333;
-}
-
-.auth-container {
-     max-width: 400px;
-}
-
-.auth-form { 
-    display: flex; 
-    flex-direction: column; 
-    gap: 15px; 
-    width: 100%; 
-    margin-top: 20px;
-}
-
-.auth-form input { 
-    padding: 15px; 
-    border-radius: 8px; 
-    border: 2px solid #7928ca; 
-    background: #24243e; 
-    color: white; 
-    font-size: 1rem; 
-    outline: none;
-    transition: 0.3s;
-}
-
-.auth-form input:focus { 
-    border-color: #ff007f;
-    box-shadow: 0 0 10px rgba(255, 0, 127, 0.3); 
-}
-
-.auth-switch { 
-    margin-top: 15px; 
-    font-size: 1rem; 
-}
-
-.auth-switch a { 
-    color: #ff007f; 
-    text-decoration: none; 
-    font-weight: bold;
-}
-
-.auth-message { 
-    margin-top: 15px;
-    font-weight: bold; 
-    text-align: center; 
-    height: 20px; 
-    font-size: 1.1rem;
-}
-
-.auth-container { 
-    max-width: 400px; 
-    background: rgba(20, 20, 35, 0.7);
-    border: 1px solid rgba(121, 40, 202, 0.4);
-    box-shadow: 0 0 30px rgba(121, 40, 202, 0.2);
-    backdrop-filter: blur(10px);
-    padding: 40px;
-    border-radius: 16px;
-}
-.auth-form { display: flex; flex-direction: column; gap: 20px; width: 100%; margin-top: 20px;}
-.auth-form input { 
-    padding: 15px; 
-    border-radius: 8px; 
-    border: 2px solid transparent; 
-    background: rgba(0, 0, 0, 0.5); 
-    color: white; 
-    font-size: 1rem; 
-    outline: none;
-    transition: 0.3s;
-    box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
-}
-.auth-form input:focus { 
-    border-color: #ff007f; 
-    box-shadow: 0 0 15px rgba(255, 0, 127, 0.4), inset 0 0 10px rgba(0,0,0,0.5); 
-}
-.auth-switch { 
-    margin-top: 20px;
-    font-size: 1rem; 
-    color: #ccd6f6; }
-.auth-switch a { 
-    color: #deff9a; 
-    text-decoration: none; 
-    font-weight: bold; 
-    transition: 0.3s; 
-}
-
-.auth-switch a:hover { 
-    color: #ff007f; 
-    text-shadow: 0 0 8px rgba(255,0,127,0.6); }
-
+/* --- HUD гравця (ІДЕАЛЬНО РІВНИЙ) --- */
 .player-hud {
     position: absolute;
     top: 20px;
     right: 20px;
     display: flex;
-    align-items: center;
+    align-items: center; 
     gap: 20px;
-    background: rgba(15, 12, 41, 0.85);
-    border: 1px solid #7928ca;
-    padding: 10px 25px;
-    border-radius: 12px;
-    box-shadow: 0 0 20px rgba(121, 40, 202, 0.4);
-    backdrop-filter: blur(8px);
+    background: rgba(20, 20, 35, 0.9);
+    padding: 12px 25px;
+    border-radius: 15px;
+    border: 2px solid #7928ca;
+    box-shadow: 0 0 20px rgba(121, 40, 202, 0.5);
+    backdrop-filter: blur(10px);
     z-index: 1000;
 }
+
 .hud-info {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+    justify-content: center;
+    gap: 5px;
 }
+
 .hud-username {
-    color: #fff;
-    font-weight: 700;
-    font-size: 1.1rem;
-    letter-spacing: 1px;
-}
-.hud-balance {
+    font-weight: 900;
     color: #deff9a;
-    font-weight: 800;
-    font-size: 1.3rem;
-    text-shadow: 0 0 10px rgba(222, 255, 154, 0.4);
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    line-height: 1;
+    margin: 0;
+    white-space: nowrap; /* ЗАБОРОНА ПЕРЕНОСУ */
 }
+
+.hud-balance { 
+    color: #fff; 
+    font-size: 0.9rem; 
+    font-weight: 700;
+    line-height: 1;
+    margin: 0;
+    white-space: nowrap; /* ЗАБОРОНА ПЕРЕНОСУ */
+}
+
 .hud-logout {
     background: transparent;
     color: #ff007f;
@@ -340,13 +205,15 @@ button#spin-btn:disabled {
     color: #fff;
     box-shadow: 0 0 15px rgba(255, 0, 127, 0.6);
 }
+
+/* Лобі гри */
 .lobby-menu {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    padding-top: 60px; /* Відступ від HUD */
+    padding-top: 60px;
 }
 
 .lobby-title {
@@ -385,36 +252,247 @@ button#spin-btn:disabled {
     box-shadow: 0 15px 30px rgba(255, 0, 127, 0.4);
 }
 
-.game-card .game-icon {
-    font-size: 4rem;
-    margin-bottom: 15px;
-}
+.game-card .game-icon { font-size: 4rem; margin-bottom: 15px; }
+.game-card h2 { color: #deff9a; margin-bottom: 10px; font-size: 1.5rem; }
+.game-card p { color: #ccd6f6; font-size: 0.9rem; line-height: 1.4; }
 
-.game-card h2 {
-    color: #deff9a;
-    margin-bottom: 10px;
-    font-size: 1.5rem;
+/* Таблиця лідерів */
+.leaderboard-section { 
+    width: 100%; 
+    max-width: 600px; 
+    margin: 0 auto; 
+    padding-bottom: 50px; 
 }
-
-.game-card p {
-    color: #ccd6f6;
-    font-size: 0.9rem;
-    line-height: 1.4;
+.leaderboard-section h2.lobby-title {
+    text-align: center;
+    width: 100%;
+    margin-bottom: 25px;
 }
-
-.game-card.locked {
-    opacity: 0.5;
-    cursor: not-allowed;
-    border-color: #555;
+.leaderboard-table { 
+    width: 100%; 
+    border-collapse: collapse; 
+    background: rgba(20, 20, 35, 0.6); 
+    backdrop-filter: blur(10px); 
+    border-radius: 12px; 
+    overflow: hidden; 
+    border: 1px solid #7928ca; 
+    box-shadow: 0 0 20px rgba(121, 40, 202, 0.2); 
 }
-.game-card.locked:hover {
-    transform: none;
-    box-shadow: none;
-    border-color: #555;
-}
-
-.leaderboard-section { width: 100%; max-width: 600px; margin: 0 auto; padding-bottom: 50px; }
-.leaderboard-table { width: 100%; border-collapse: collapse; background: rgba(20, 20, 35, 0.6); backdrop-filter: blur(10px); border-radius: 12px; overflow: hidden; border: 1px solid #7928ca; box-shadow: 0 0 20px rgba(121, 40, 202, 0.2); }
 .leaderboard-table th, .leaderboard-table td { padding: 15px; text-align: left; border-bottom: 1px solid rgba(121, 40, 202, 0.3); }
 .leaderboard-table th { background: rgba(121, 40, 202, 0.5); color: #deff9a; text-transform: uppercase; }
 .leaderboard-table tr:hover { background: rgba(255, 0, 127, 0.1); }
+
+/* --- АВТОРИЗАЦІЯ (ФІКС ШИРИНИ ІНПУТІВ) --- */
+.auth-container {
+    background: rgba(20, 20, 35, 0.85);
+    border: 2px solid #ff007f;
+    box-shadow: 0 0 30px rgba(255, 0, 127, 0.4);
+    border-radius: 16px;
+    padding: 40px;
+    width: 400px;
+    text-align: center;
+    box-sizing: border-box;
+}
+.auth-title {
+    color: #ff007f;
+    font-size: 3rem;
+    margin: 0 0 30px 0;
+    text-shadow: 0 0 15px rgba(255,0,127,0.6);
+    font-weight: 900;
+}
+.auth-form { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 20px; 
+    width: 100%; 
+    margin-top: 20px;
+}
+.auth-form input { 
+    padding: 15px; 
+    border-radius: 8px; 
+    border: 2px solid transparent; 
+    background: rgba(0, 0, 0, 0.5); 
+    color: white; 
+    font-size: 1rem; 
+    outline: none;
+    transition: 0.3s;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+    width: 100%; /* РОЗТЯГУЄМО НА ВСЮ ШИРИНУ */
+    box-sizing: border-box; /* ЗАБОРОНЯЄМО ПАДДІНГАМ ЛАМАТИ ШИРИНУ */
+}
+.auth-form input:focus { 
+    border-color: #ff007f; 
+    box-shadow: 0 0 15px rgba(255, 0, 127, 0.4), inset 0 0 10px rgba(0,0,0,0.5); 
+}
+.auth-btn {
+    background: linear-gradient(45deg, #ff007f, #7928ca);
+    color: white;
+    border: none;
+    padding: 15px;
+    font-size: 1.2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 900;
+    text-transform: uppercase;
+    transition: 0.3s;
+    width: 100%;
+    box-sizing: border-box;
+}
+.auth-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px rgba(255, 0, 127, 0.6);
+}
+.auth-switch { margin-top: 20px; font-size: 1rem; color: #ccd6f6; }
+.auth-switch a { color: #deff9a; text-decoration: none; font-weight: bold; transition: 0.3s; }
+.auth-switch a:hover { color: #ff007f; text-shadow: 0 0 8px rgba(255,0,127,0.6); }
+.back-link { display: block; margin-top: 25px; color: #8892b0; text-decoration: none; font-weight: bold; transition: 0.2s; }
+.back-link:hover { color: #ff007f; }
+
+/* --- СТИЛІ БЛЕКДЖЕКА (ФІКС КОНТЕЙНЕРА І ВІДСТУПІВ) --- */
+.back-to-lobby-btn {
+    position: absolute; 
+    top: 20px; 
+    left: 20px; 
+    color: #ff007f; 
+    text-decoration: none; 
+    font-weight: bold; 
+    border: 2px solid #ff007f; 
+    padding: 10px 20px; 
+    border-radius: 10px; 
+    transition: 0.3s; 
+    font-size: 0.9rem;
+}
+.back-to-lobby-btn:hover { background: rgba(255, 0, 127, 0.2); box-shadow: 0 0 10px rgba(255, 0, 127, 0.5); }
+
+/* Змушуємо панель Блекджека брати всю ширину */
+.bj-full-panel { 
+    width: 100% !important; 
+    padding: 40px !important; 
+    display: flex !important; 
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box; 
+}
+
+.bj-row-header {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 30px !important;
+    width: 100%;
+    margin-bottom: 20px;
+}
+.bj-text-title, .bj-text-balance {
+    line-height: 1 !important;
+    margin: 0 !important;
+    display: flex;
+    align-items: center;
+}
+
+.bj-text-title { font-size: 2.2rem !important; font-weight: 900 !important; color: #ff007f !important; letter-spacing: 2px; }
+.bj-text-balance { font-size: 2.2rem !important; font-weight: 900 !important; color: #fff !important; letter-spacing: 1px; }
+.bj-text-balance span { color: #deff9a; }
+
+.bj-dep-block { width: 100%; text-align: center; margin-bottom: 35px; }
+
+.bj-dep-btn {
+    background: #22c55e !important;
+    padding: 10px 25px !important;
+    border-radius: 8px !important;
+    font-size: 1rem !important;
+    font-weight: bold;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: 0.2s;
+    box-shadow: 0 4px 15px rgba(34, 197, 94, 0.4);
+    display: inline-block;
+}
+.bj-dep-btn:hover { background: #16a34a !important; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(34, 197, 94, 0.6); }
+
+/* Рівномірний розподіл балів на всю ширину */
+.bj-scores-container {
+    display: flex;
+    justify-content: space-evenly; /* Рівномірний відступ */
+    align-items: center;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 30px;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 0, 127, 0.3);
+    margin-bottom: 35px;
+    box-sizing: border-box;
+}
+
+.bj-score-box { 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1; /* Змушує блоки займати однакову ширину */
+}
+.bj-score-divider { width: 2px; background: rgba(255, 255, 255, 0.15); height: 80px; }
+.bj-score-title { color: #8892b0; margin: 0 0 10px 0; text-transform: uppercase; font-size: 1rem; letter-spacing: 2px; font-weight: 700; text-align: center; }
+
+.score-number { font-size: 5.5rem; font-weight: 900; line-height: 1; display: block; margin: 0; transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); text-align: center; }
+.score-anim { transform: scale(1.2); }
+
+.bj-controls-area { width: 100%; text-align: center; }
+
+.quick-bets {
+    display: flex;
+    justify-content: center !important;
+    gap: 12px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+.bj-quick-bet {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid #7928ca;
+    color: #fff;
+    padding: 8px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.2s;
+}
+.bj-quick-bet:hover {
+    background: #7928ca;
+    box-shadow: 0 0 10px rgba(121, 40, 202, 0.6);
+}
+
+.bj-input-group { display: flex; justify-content: center; align-items: center; gap: 15px; margin-bottom: 25px; width: 100%; }
+
+.bj-input {
+    background: rgba(255, 255, 255, 0.95);
+    border: 3px solid #7928ca;
+    padding: 0 15px;
+    border-radius: 8px;
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #141423;
+    width: 140px;
+    height: 50px;
+    text-align: center;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.bj-btn {
+    background: linear-gradient(45deg, #ff007f, #7928ca);
+    color: white;
+    border: none;
+    height: 50px;
+    padding: 0 40px;
+    font-size: 1.2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 900;
+    text-transform: uppercase;
+    transition: 0.2s;
+    box-shadow: 0 0 15px rgba(255, 0, 127, 0.4);
+    box-sizing: border-box;
+}
+.bj-btn:hover { transform: translateY(-2px); box-shadow: 0 0 25px rgba(255, 0, 127, 0.7); }
+.bj-btn:disabled { background: #444 !important; box-shadow: none; transform: none; }
+
+.bj-controls-area .message { font-size: 1.2rem; font-weight: 700; margin-top: 15px; text-align: center; width: 100%; height: 30px; }

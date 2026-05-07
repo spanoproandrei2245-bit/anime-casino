@@ -1,66 +1,126 @@
-const authForm = document.getElementById('auth-form') as HTMLFormElement;
-const usernameInput = document.getElementById('username') as HTMLInputElement;
-const passwordInput = document.getElementById('password') as HTMLInputElement;
-const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
-const switchModeBtn = document.getElementById('switch-mode') as HTMLAnchorElement;
-const authTitle = document.getElementById('auth-title') as HTMLHeadingElement;
-const switchText = document.getElementById('switch-text') as HTMLSpanElement;
-const authMessage = document.getElementById('auth-message') as HTMLDivElement;
-
-let isLoginMode = true;
-
-switchModeBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    isLoginMode = !isLoginMode;
-    authTitle.textContent = isLoginMode ? 'Вхід' : 'Реєстрація';
-    submitBtn.textContent = isLoginMode ? 'Увійти' : 'Створити акаунт';
-    switchText.textContent = isLoginMode ? 'Ще немає акаунта?' : 'Вже маєте акаунт?';
-    switchModeBtn.textContent = isLoginMode ? 'Зареєструватися' : 'Увійти';
-    authMessage.textContent = '';
-});
-
-authForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const username = usernameInput.value;
-    const password = passwordInput.value;
+(() => {
+    const authMainTitle = document.getElementById('auth-main-title') as HTMLHeadingElement;
     
-    const endpoint = isLoginMode ? '/api/login' : '/api/register';
+    const loginForm = document.getElementById('login-form') as HTMLDivElement;
+    const registerForm = document.getElementById('register-form') as HTMLDivElement;
     
-    try {
-        const response = await fetch(endpoint, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username, password })
+    const showRegisterLink = document.getElementById('show-register') as HTMLAnchorElement;
+    const showLoginLink = document.getElementById('show-login') as HTMLAnchorElement;
+
+    const loginBtn = document.getElementById('login-btn') as HTMLButtonElement;
+    const registerBtn = document.getElementById('register-btn') as HTMLButtonElement;
+
+    const loginUsernameInput = document.getElementById('login-username') as HTMLInputElement;
+    const loginPasswordInput = document.getElementById('login-password') as HTMLInputElement;
+    
+    const regUsernameInput = document.getElementById('reg-username') as HTMLInputElement;
+    const regPasswordInput = document.getElementById('reg-password') as HTMLInputElement;
+
+    const loginMessage = document.getElementById('login-message') as HTMLDivElement;
+    const registerMessage = document.getElementById('register-message') as HTMLDivElement;
+
+    // Перемикання між формами Вхід / Реєстрація
+    if (showRegisterLink && showLoginLink) {
+        showRegisterLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginForm.style.display = 'none';
+            registerForm.style.display = 'flex';
+            loginMessage.textContent = '';
+            // Змінюємо заголовок
+            if (authMainTitle) authMainTitle.textContent = 'РЕЄСТРАЦІЯ';
         });
-        
-        const data = await response.json();
-        
-        if (!response.ok) {
-            authMessage.style.color = '#ff3333';
-            authMessage.textContent = data.error || 'Помилка';
-            return;
-        }
-        
-        authMessage.style.color = '#00ff00';
-        
-        if (isLoginMode && data.token) {
-            authMessage.textContent = 'Успішний вхід! Завантаження...';
-            localStorage.setItem('token', data.token);
-            localStorage.setItem('username', data.username);
-            localStorage.setItem('token', data.token);
-            localStorage.setItem('username', data.username);
-            localStorage.setItem('balance', data.balance);
-            
-            setTimeout(() => { window.location.href = 'index.html'; }, 1000);
-        } else {
-            authMessage.textContent = data.message || 'Реєстрація успішна!';
-            setTimeout(() => {
-                switchModeBtn.click();
-                passwordInput.value = '';
-            }, 1500);
-        }
-    } catch (err) {
-        authMessage.style.color = '#ff3333';
-        authMessage.textContent = 'Помилка з\'єднання з сервером';
+
+        showLoginLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            registerForm.style.display = 'none';
+            loginForm.style.display = 'flex';
+            registerMessage.textContent = '';
+            // Повертаємо заголовок
+            if (authMainTitle) authMainTitle.textContent = 'ВХІД';
+        });
     }
-});
+
+    // Логіка ВХОДУ
+    if (loginBtn) {
+        loginBtn.addEventListener('click', async () => {
+            const username = loginUsernameInput.value.trim();
+            const password = loginPasswordInput.value.trim();
+
+            if (!username || !password) {
+                loginMessage.textContent = 'Введіть нікнейм та пароль!';
+                loginMessage.className = 'auth-message lose-text';
+                return;
+            }
+
+            loginBtn.disabled = true;
+
+            try {
+                const res = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+                const data = await res.json();
+
+                if (res.ok) {
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('username', data.username);
+                    localStorage.setItem('balance', data.balance);
+                    window.location.href = 'index.html';
+                } else {
+                    loginMessage.textContent = data.error || 'Помилка входу';
+                    loginMessage.className = 'auth-message lose-text';
+                }
+            } catch (err) {
+                loginMessage.textContent = 'Помилка з\'єднання з сервером';
+                loginMessage.className = 'auth-message lose-text';
+            }
+            
+            loginBtn.disabled = false;
+        });
+    }
+
+    // Логіка РЕЄСТРАЦІЇ
+    if (registerBtn) {
+        registerBtn.addEventListener('click', async () => {
+            const username = regUsernameInput.value.trim();
+            const password = regPasswordInput.value.trim();
+
+            if (!username || !password) {
+                registerMessage.textContent = 'Введіть нікнейм та пароль!';
+                registerMessage.className = 'auth-message lose-text';
+                return;
+            }
+
+            registerBtn.disabled = true;
+
+            try {
+                const res = await fetch('/api/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+                const data = await res.json();
+
+                if (res.ok) {
+                    registerMessage.textContent = 'Успішно! Тепер увійдіть.';
+                    registerMessage.className = 'auth-message win-text';
+                    setTimeout(() => {
+                        showLoginLink.click();
+                        loginUsernameInput.value = username; 
+                        regUsernameInput.value = '';
+                        regPasswordInput.value = '';
+                    }, 1500);
+                } else {
+                    registerMessage.textContent = data.error || 'Помилка реєстрації';
+                    registerMessage.className = 'auth-message lose-text';
+                }
+            } catch (err) {
+                registerMessage.textContent = 'Помилка з\'єднання з сервером';
+                registerMessage.className = 'auth-message lose-text';
+            }
+            
+            registerBtn.disabled = false;
+        });
+    }
+})();

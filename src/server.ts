@@ -168,6 +168,41 @@ fastify.get('/api/vip-status', async (request, reply) => {
     }
 });
 
+fastify.post('/api/blackjack', { preHandler: [authProxy] }, async (request: any, reply: any) => {
+    const betAmount = Number(request.body.bet);
+    if (!betAmount || betAmount <= 0) return reply.status(400).send({ error: 'Невірна ставка' });
+
+    const user = await prisma.user.findUnique({ where: { id: request.user.userId } });
+    if (!user || user.balance < betAmount) return reply.status(400).send({ error: 'Недостатньо монет!' });
+
+    const playerScore = Math.floor(Math.random() * 6) + 16; 
+    const dealerScore = Math.floor(Math.random() * 6) + 17; 
+
+    let winAmount = 0;
+    let message = '';
+
+    if (playerScore > 21) {
+        message = 'Перебір! Ти програв.';
+    } else if (dealerScore > 21 || playerScore > dealerScore) {
+        winAmount = betAmount * 2;
+        message = 'Ти виграв!';
+    } else if (playerScore === dealerScore) {
+        winAmount = betAmount;
+        message = 'Нічия! Ставка повертається.';
+    } else {
+        message = 'Дилер виграв!';
+    }
+
+    const newBalance = user.balance - betAmount + winAmount;
+
+    await prisma.user.update({
+        where: { id: user.id },
+        data: { balance: newBalance }
+    });
+
+    return { success: true, playerScore, dealerScore, winAmount, newBalance, message };
+});
+
 const start = async () => {
     try {
         await fastify.listen({ port: 3000 });

@@ -2,78 +2,61 @@
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Слоти</title>
+    <title>Слоти - НТУУ КазиноПІ</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div id="player-hud" class="player-hud" style="display: none;">
+    <div id="player-hud" class="player-hud">
         <div class="hud-info">
-            <span id="hud-username" class="hud-username">Player</span>
-            <span class="hud-balance"><span id="hud-balance-val">0</span> 💸</span>
+            <span id="hud-username" class="hud-username">Гравець</span>
+            <span class="hud-balance"><span id="hud-balance-val">0</span> 💎</span>
         </div>
         <button id="logout-btn" class="hud-logout">Вийти</button>
     </div>
 
-    <a href="index.html" style="position: absolute; top: 20px; left: 20px; color: #ff007f; text-decoration: none; font-weight: bold; font-family: sans-serif; border: 2px solid #ff007f; padding: 8px 16px; border-radius: 8px; transition: 0.3s;" onmouseover="this.style.background='#ff007f'; this.style.color='#fff'" onmouseout="this.style.background='transparent'; this.style.color='#ff007f'">⬅ В лобі</a>
+    <a href="index.html" class="back-to-lobby-btn">⬅ В ЛОБІ</a>
+
     <div class="casino-container">
         <div class="character-panel">
-            <img id="character-image" src="img/anime.png" alt="Аніме персонаж">
-            <p id="character-dialogue">"Готовий зробити ставку, семпай?"</p>
+            <img src="img/anime.png" id="character-image" alt="Anime Character">
+            <div id="character-dialogue">"Готовий зробити ставку, семпай?"</div>
         </div>
 
-        <div class="game-panel">
-            <header>
-                <h2>НТУУ КазиноПІ</h2>
-                <div class="balance-container">
-                    <span class="balance-text">Баланс: <span id="balance">...</span></span>
-                    <button id="deposit-btn" class="deposit-btn">Хочу додеп</button>
-                </div>
-            </header>
+        <div class="game-panel bj-full-panel" style="width: 60% !important; padding: 30px !important;">
+            
+            <div class="bj-row-header" style="margin-bottom: 30px;">
+                <h2 class="bj-text-title" style="font-size: 1.8rem !important;">СЛОТИ</h2>
+                <div class="bj-text-balance" style="font-size: 1.4rem !important;">БАЛАНС: <span id="balance">...</span> 💎</div>
+            </div>
 
-            <div class="slot-machine">
+            <div class="bj-dep-block" style="margin-bottom: 30px;">
+                <button id="deposit-btn" class="quick-btn bj-dep-btn">Хочу додеп</button>
+            </div>
+
+            <div class="slot-machine" style="margin-bottom: 30px;">
                 <div class="slot" id="slot1">❓</div>
                 <div class="slot" id="slot2">❓</div>
                 <div class="slot" id="slot3">❓</div>
             </div>
 
-            <div class="controls-wrapper">
+            <div class="bj-controls-area">
                 <div class="quick-bets">
-                    <button class="quick-btn" data-add="25">+25</button>
-                    <button class="quick-btn" data-add="50">+50</button>
-                    <button class="quick-btn" data-add="75">+75</button>
-                    <button class="quick-btn" data-add="100">+100</button>
+                    <button class="quick-btn bj-quick-bet" data-amount="25">+25</button>
+                    <button class="quick-btn bj-quick-bet" data-amount="50">+50</button>
+                    <button class="quick-btn bj-quick-bet" data-amount="75">+75</button>
+                    <button class="quick-btn bj-quick-bet" data-amount="100">+100</button>
                 </div>
-                <div class="controls">
-                    <input type="number" id="bet-amount" value="100" min="1" placeholder="Ставка">
-                    <button id="spin-btn">Крутити</button>
+
+                <div class="bj-input-group">
+                    <input type="number" id="bet-amount" class="bj-input" value="100">
+                    <button id="spin-btn" class="bj-btn">КРУТИТИ</button>
                 </div>
+                <div id="message" class="message">Зроби свою першу ставку!</div>
             </div>
-            
-            <div id="message" class="message">Зроби свою першу ставку!</div>
+
         </div>
     </div>
 
-   <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const token = localStorage.getItem('token');
-            const username = localStorage.getItem('username');
-            const balance = localStorage.getItem('balance');
-
-            if (token && username) {
-                document.getElementById('player-hud').style.display = 'flex';
-                document.getElementById('hud-username').textContent = username;
-                document.getElementById('hud-balance-val').textContent = balance || '1000';
-            } else {
-                window.location.href = 'auth.html';
-            }
-
-            document.getElementById('logout-btn')?.addEventListener('click', () => {
-                localStorage.clear(); 
-                window.location.href = 'auth.html';
-            });
-        });
-    </script>
     <script src="js/slots.js"></script>
 </body>
 </html>

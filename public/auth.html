@@ -2,30 +2,36 @@
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Авторизація</title>
+    <title>Вхід - НТУУ КазиноПІ</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="lobby-body">
-    <div class="lobby-container auth-container">
-        <h1 class="lobby-title" id="auth-title">Вхід</h1>
-
-        <form id="auth-form" class="auth-form">
-            <input type="text" id="username" placeholder="Нікнейм" required autocomplete="username">
-            <input type="password" id="password" placeholder="Пароль" required autocomplete="current-password">
-            <button type="submit" class="play-btn" id="submit-btn">Увійти</button>
-        </form>
-
-        <p class="auth-switch">
-            <span id="switch-text">Ще немає акаунта?</span> 
-            <a href="#" id="switch-mode">Зареєструватися</a>
-        </p>
+<body>
+    <div class="auth-container">
+        <h1 id="auth-main-title" class="auth-title">ВХІД</h1>
         
-        <div id="auth-message" class="auth-message"></div>
-        <br>
-        <a href="index.html" class="play-btn" style="background: #555;">Повернутися в лобі</a>
+        <div class="auth-form" id="login-form">
+            <input type="text" id="login-username" placeholder="Нікнейм" autocomplete="off">
+            <input type="password" id="login-password" placeholder="Пароль">
+            <button id="login-btn" class="auth-btn">Увійти</button>
+            <div class="auth-switch">
+                Ще немає акаунта? <a href="#" id="show-register">Зареєструватися</a>
+            </div>
+            <div id="login-message" class="auth-message"></div>
+        </div>
+
+        <div class="auth-form" id="register-form" style="display: none;">
+            <input type="text" id="reg-username" placeholder="Новий Нікнейм" autocomplete="off">
+            <input type="password" id="reg-password" placeholder="Пароль">
+            <button id="register-btn" class="auth-btn">Створити акаунт</button>
+            <div class="auth-switch">
+                Вже є акаунт? <a href="#" id="show-login">Увійти</a>
+            </div>
+            <div id="register-message" class="auth-message"></div>
+        </div>
+
+        <a href="index.html" class="back-link">⬅ Повернутися в лобі</a>
     </div>
-    
+
     <script src="js/auth.js"></script>
 </body>
 </html>
