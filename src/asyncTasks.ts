@@ -14,8 +14,8 @@ export function asyncMapCallback<T, U>(arr: T[], fn: (item: T, cb: (res: U) => v
 
 export function asyncMapPromise<T, U>(arr: T[], fn: (item: T, signal?: AbortSignal) => Promise<U>, signal?: AbortSignal): Promise<U[]> {
     return new Promise((resolve, reject) => {
-        if (signal?.aborted) return reject(new Error('Aborted'));
-        const onAbort = () => reject(new Error('Aborted'));
+        if (signal?.aborted) return reject(new Error('Перервано'));
+        const onAbort = () => reject(new Error('Перервано'));
         signal?.addEventListener('abort', onAbort);
 
         Promise.all(arr.map(item => fn(item, signal)))

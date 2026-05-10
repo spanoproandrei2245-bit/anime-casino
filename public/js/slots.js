@@ -1,5 +1,10 @@
 "use strict";
 (() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+        window.location.href = 'auth.html';
+        return;
+    }
     const spinBtn = document.getElementById('spin-btn');
     const betInput = document.getElementById('bet-amount');
     const messageEl = document.getElementById('message');
@@ -10,7 +15,7 @@
         document.getElementById('slot2'),
         document.getElementById('slot3')
     ];
-    const currentBalance = localStorage.getItem('balance') || '1000';
+    const currentBalance = localStorage.getItem('balance') || '0';
     if (balanceEl)
         balanceEl.textContent = currentBalance;
     const hudUsername = document.getElementById('hud-username');
@@ -26,7 +31,6 @@
             balanceEl.textContent = newBalance.toString();
         localStorage.setItem('balance', newBalance.toString());
     }
-    // Робочі кнопки швидких ставок
     const quickBetBtns = document.querySelectorAll('.bj-quick-bet');
     quickBetBtns.forEach(btn => {
         btn.addEventListener('click', (e) => {
@@ -36,12 +40,8 @@
             betInput.value = (currentBet + amount).toString();
         });
     });
-    // Логіка Додепу
     if (depBtn) {
         depBtn.addEventListener('click', async () => {
-            const token = localStorage.getItem('token');
-            if (!token)
-                return;
             if (!confirm("Береш безкоштовні 500 монет?"))
                 return;
             try {
@@ -63,11 +63,6 @@
     }
     spinBtn.addEventListener('click', async () => {
         const bet = betInput.value;
-        const token = localStorage.getItem('token');
-        if (!token) {
-            window.location.href = 'auth.html';
-            return;
-        }
         spinBtn.disabled = true;
         messageEl.textContent = "Крутимо...";
         messageEl.className = "message";
@@ -99,11 +94,11 @@
             slots[2].textContent = data.result[2];
             updateHUD(data.newBalance);
             if (data.winAmount > 0) {
-                messageEl.textContent = `Ти виграв ${data.winAmount} 💎!`;
+                messageEl.textContent = `Ти виграв ${data.winAmount} 💸!`;
                 messageEl.className = "message win-text";
             }
             else {
-                messageEl.textContent = "Не повезло. Попробуй еще!";
+                messageEl.textContent = "Не повезло. Попробуй ще!";
                 messageEl.className = "message lose-text";
             }
         }

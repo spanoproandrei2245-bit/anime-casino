@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,8 +9,8 @@
 <body>
     <div id="player-hud" class="player-hud" style="display: none;">
         <div class="hud-info">
-            <span id="hud-username" class="hud-username">Player</span>
-            <span class="hud-balance"><span id="hud-balance-val">0</span> 💸
+            <span id="hud-username" class="hud-username">Гравець</span>
+            <span class="hud-balance"><span id="hud-balance-val">0</span> 💸</span>
         </div>
         <button id="logout-btn" class="hud-logout">Вийти</button>
     </div>
@@ -49,25 +49,24 @@
             </a>
         </div>
         <div class="leaderboard-section">
-        <h2 class="lobby-title" style="font-size: 2rem; margin-top: 50px;">Топ-10 Багатіїв</h2>
-        <table class="leaderboard-table">
-            <thead>
-                <tr>
-                    <th>Місце</th>
-                    <th>Гравець</th>
-                    <th>Баланс</th>
-                </tr>
-            </thead>
-            <tbody id="leaderboard-body">
-                <tr><td colspan="3" style="text-align: center;">Завантаження...</td></tr>
-            </tbody>
-        </table>
-        <a href="/api/export" class="hud-logout" style="display: block; width: max-content; margin: 20px auto; text-align: center; text-decoration: none; padding: 12px 24px;">
-            Завантажити CSV (Stream)
-        </a>
+            <h2 class="lobby-title" style="font-size: 2rem; margin-top: 50px;">Топ-10 Багатіїв</h2>
+            <table class="leaderboard-table">
+                <thead>
+                    <tr>
+                        <th>Місце</th>
+                        <th>Гравець</th>
+                        <th>Баланс</th>
+                    </tr>
+                </thead>
+                <tbody id="leaderboard-body">
+                    <tr><td colspan="3" style="text-align: center;">Завантаження...</td></tr>
+                </tbody>
+            </table>
+            <a href="/api/export" class="hud-logout" style="display: block; width: max-content; margin: 20px auto; text-align: center; text-decoration: none; padding: 12px 24px;">
+                Завантажити CSV (Stream)
+            </a>
+        </div>
     </div>
-    
     <script src="js/lobby.js"></script>
-    </div>
 </body>
 </html>

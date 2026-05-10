@@ -1,18 +1,18 @@
-import { GameEngine } from './engine';
 import Fastify from 'fastify';
 import fastifyStatic from '@fastify/static';
 import path from 'path';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { prisma } from './database';
 import { EventEmitter } from 'events';
 import { Readable } from 'stream';
+import { prisma } from './database';
+import { GameEngine } from './engine';
 import { memoizeWithTimeout } from './utils';
 import { PriorityQueue } from './queue';
 import { asyncMapPromise } from './asyncTasks';
 
 const fastify = Fastify({ logger: true });
-const JWT_SECRET = 'super-secret-anime-key-123'; 
+const JWT_SECRET = 'super-secret-anime-key-123';
 
 const casinoEvents = new EventEmitter();
 const supportQueue = new PriorityQueue<{ username: string; issue: string }>();
@@ -35,14 +35,14 @@ const reel = createInfiniteReel();
 
 const authProxy = async (request: any, reply: any) => {
     const authHeader = request.headers.authorization;
-    if (!authHeader) return reply.status(401).send({ error: 'Unauthorized' });
+    if (!authHeader) return reply.status(401).send({ error: 'Не авторизовано' });
     
     const token = authHeader.replace('Bearer ', '');
     try {
         const decoded = jwt.verify(token, JWT_SECRET) as any;
         request.user = decoded;
     } catch (err) {
-        return reply.status(401).send({ error: 'Invalid token' });
+        return reply.status(401).send({ error: 'Недійсний токен' });
     }
 };
 
@@ -63,10 +63,10 @@ fastify.register(fastifyStatic, {
 
 fastify.post('/api/register', async (request, reply) => {
     const { username, password } = request.body as any;
-    if (!username || !password) return reply.status(400).send({ error: 'No data' });
+    if (!username || !password) return reply.status(400).send({ error: 'Немає даних' });
 
     const existingUser = await prisma.user.findUnique({ where: { username } });
-    if (existingUser) return reply.status(400).send({ error: 'Exists' });
+    if (existingUser) return reply.status(400).send({ error: 'Користувач вже існує' });
 
     const hashedPassword = await bcrypt.hash(password, 10);
     await prisma.user.create({ data: { username, password: hashedPassword } });
@@ -77,10 +77,10 @@ fastify.post('/api/register', async (request, reply) => {
 fastify.post('/api/login', async (request, reply) => {
     const { username, password } = request.body as any;
     const user = await prisma.user.findUnique({ where: { username } });
-    if (!user) return reply.status(400).send({ error: 'Not found' });
+    if (!user) return reply.status(400).send({ error: 'Не знайдено' });
 
     const isValid = await bcrypt.compare(password, user.password);
-    if (!isValid) return reply.status(400).send({ error: 'Wrong password' });
+    if (!isValid) return reply.status(400).send({ error: 'Невірний пароль' });
 
     const token = jwt.sign({ userId: user.id, username: user.username }, JWT_SECRET, { expiresIn: '24h' });
     return { success: true, token, balance: user.balance, username: user.username };
@@ -110,10 +110,10 @@ fastify.get('/api/export', async (request, reply) => {
 
 fastify.post('/api/spin', { preHandler: [authProxy] }, async (request: any, reply: any) => {
     const betAmount = Number(request.body.bet);
-    if (!betAmount || betAmount <= 0) return reply.status(400).send({ error: 'Invalid bet' });
+    if (!betAmount || betAmount <= 0) return reply.status(400).send({ error: 'Невірна ставка' });
 
     const user = await prisma.user.findUnique({ where: { id: request.user.userId } });
-    if (!user || user.balance < betAmount) return reply.status(400).send({ error: 'Not enough coins' });
+    if (!user || user.balance < betAmount) return reply.status(400).send({ error: 'Недостатньо монет!' });
 
     const result = [reel.next().value, reel.next().value, reel.next().value];
     const winAmount = await GameEngine.calculateWin(betAmount, result as string[]);
@@ -131,7 +131,7 @@ fastify.post('/api/spin', { preHandler: [authProxy] }, async (request: any, repl
 
 fastify.post('/api/deposit', { preHandler: [authProxy] }, async (request: any, reply: any) => {
     const user = await prisma.user.findUnique({ where: { id: request.user.userId } });
-    if (!user) return reply.status(404).send({ error: 'Not found' });
+    if (!user) return reply.status(404).send({ error: 'Не знайдено' });
 
     const newBalance = user.balance + 500;
     await prisma.user.update({ where: { id: user.id }, data: { balance: newBalance } });
@@ -164,7 +164,7 @@ fastify.get('/api/vip-status', async (request, reply) => {
         
         return { success: true, data: enrichedUsers };
     } catch (err) {
-        return reply.status(500).send({ error: 'Aborted' });
+        return reply.status(500).send({ error: 'Перервано' });
     }
 });
 
@@ -212,4 +212,4 @@ const start = async () => {
         process.exit(1);
     }
 };
-start();    
+start();

@@ -13,14 +13,12 @@
     const regPasswordInput = document.getElementById('reg-password');
     const loginMessage = document.getElementById('login-message');
     const registerMessage = document.getElementById('register-message');
-    // Перемикання між формами Вхід / Реєстрація
     if (showRegisterLink && showLoginLink) {
         showRegisterLink.addEventListener('click', (e) => {
             e.preventDefault();
             loginForm.style.display = 'none';
             registerForm.style.display = 'flex';
             loginMessage.textContent = '';
-            // Змінюємо заголовок
             if (authMainTitle)
                 authMainTitle.textContent = 'РЕЄСТРАЦІЯ';
         });
@@ -29,12 +27,10 @@
             registerForm.style.display = 'none';
             loginForm.style.display = 'flex';
             registerMessage.textContent = '';
-            // Повертаємо заголовок
             if (authMainTitle)
                 authMainTitle.textContent = 'ВХІД';
         });
     }
-    // Логіка ВХОДУ
     if (loginBtn) {
         loginBtn.addEventListener('click', async () => {
             const username = loginUsernameInput.value.trim();
@@ -70,7 +66,6 @@
             loginBtn.disabled = false;
         });
     }
-    // Логіка РЕЄСТРАЦІЇ
     if (registerBtn) {
         registerBtn.addEventListener('click', async () => {
             const username = regUsernameInput.value.trim();

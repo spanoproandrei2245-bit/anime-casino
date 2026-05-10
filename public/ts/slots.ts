@@ -1,4 +1,10 @@
 (() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+        window.location.href = 'auth.html';
+        return;
+    }
+
     const spinBtn = document.getElementById('spin-btn') as HTMLButtonElement;
     const betInput = document.getElementById('bet-amount') as HTMLInputElement;
     const messageEl = document.getElementById('message') as HTMLDivElement;
@@ -11,7 +17,7 @@
         document.getElementById('slot3') as HTMLDivElement
     ];
 
-    const currentBalance = localStorage.getItem('balance') || '1000';
+    const currentBalance = localStorage.getItem('balance') || '0';
     if (balanceEl) balanceEl.textContent = currentBalance;
     
     const hudUsername = document.getElementById('hud-username');
@@ -26,7 +32,6 @@
         localStorage.setItem('balance', newBalance.toString());
     }
 
-    // Робочі кнопки швидких ставок
     const quickBetBtns = document.querySelectorAll('.bj-quick-bet');
     quickBetBtns.forEach(btn => {
         btn.addEventListener('click', (e) => {
@@ -37,12 +42,8 @@
         });
     });
 
-    // Логіка Додепу
     if (depBtn) {
         depBtn.addEventListener('click', async () => {
-            const token = localStorage.getItem('token');
-            if (!token) return;
-
             if (!confirm("Береш безкоштовні 500 монет?")) return;
 
             try {
@@ -64,12 +65,6 @@
 
     spinBtn.addEventListener('click', async () => {
         const bet = betInput.value;
-        const token = localStorage.getItem('token');
-
-        if (!token) {
-            window.location.href = 'auth.html';
-            return;
-        }
 
         spinBtn.disabled = true;
         messageEl.textContent = "Крутимо...";
@@ -109,10 +104,10 @@
             updateHUD(data.newBalance);
 
             if (data.winAmount > 0) {
-                messageEl.textContent = `Ти виграв ${data.winAmount} 💎!`;
+                messageEl.textContent = `Ти виграв ${data.winAmount} 💸!`;
                 messageEl.className = "message win-text";
             } else {
-                messageEl.textContent = "Не повезло. Попробуй еще!";
+                messageEl.textContent = "Не повезло. Попробуй ще!";
                 messageEl.className = "message lose-text";
             }
         } catch (err) {

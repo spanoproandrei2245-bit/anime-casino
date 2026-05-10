@@ -1,4 +1,10 @@
 (() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+        window.location.href = 'auth.html';
+        return;
+    }
+
     const playBtn = document.getElementById('play-btn') as HTMLButtonElement;
     const betInput = document.getElementById('bet-amount') as HTMLInputElement;
     const messageEl = document.getElementById('message') as HTMLDivElement;
@@ -7,7 +13,7 @@
     const balanceEl = document.getElementById('balance') as HTMLSpanElement;
     const depBtn = document.getElementById('deposit-btn') as HTMLButtonElement;
 
-    const currentBalance = localStorage.getItem('balance') || '1000';
+    const currentBalance = localStorage.getItem('balance') || '0';
     if (balanceEl) balanceEl.textContent = currentBalance;
     
     const hudUsername = document.getElementById('hud-username');
@@ -22,7 +28,6 @@
         localStorage.setItem('balance', newBalance.toString());
     }
 
-    // Робочі кнопки швидких ставок
     const quickBetBtns = document.querySelectorAll('.bj-quick-bet');
     quickBetBtns.forEach(btn => {
         btn.addEventListener('click', (e) => {
@@ -35,12 +40,6 @@
 
     playBtn.addEventListener('click', async () => {
         const bet = betInput.value;
-        const token = localStorage.getItem('token');
-
-        if (!token) {
-            window.location.href = 'auth.html';
-            return;
-        }
 
         playBtn.disabled = true;
         messageEl.textContent = "Роздаємо карти...";
@@ -102,9 +101,6 @@
 
     if (depBtn) {
         depBtn.addEventListener('click', async () => {
-            const token = localStorage.getItem('token');
-            if (!token) return;
-
             if (!confirm("Береш безкоштовні 500 монет?")) return;
 
             try {
