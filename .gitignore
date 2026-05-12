@@ -1,8 +1,31 @@
+# Node x Залежності
 node_modules/
-/src/generated/prisma
-.env
-prisma/*.db
+npm-debug.log
+yarn-error.log
+yarn.lock
+package-lock.json
+
+# Скомпільовані файли
 dist/
+public/js/
+*.tsbuildinfo
+
+# База данних x Prisma
+.env
 dev.db
 dev.db-journal
-public/js/
+prisma/*.db
+prisma/*.db-journal
+/src/generated/prisma
+
+# Для редакторів
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# ОС
+.DS_Store
+Thumbs.db
