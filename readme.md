@@ -1,48 +1,120 @@
 <div align="center">
-  <h1>🎰 Anime Casino</h1>
-  
-  <p>Симулятор ігрового автомата з кастомним генератором випадкових чисел!</p>
 
-  <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" />
-  <img src="https://img.shields.io/badge/Fastify-000000?style=for-the-badge&logo=fastify&logoColor=white" />
-  <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" />
-  <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" />
-  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" />
+# 🎰 Anime Casino ПІ
+
+Повноцінний симулятор онлайн-казино з клієнт-серверною архітектурою, базою даних та безпечною авторизацією!
+
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![Fastify](https://img.shields.io/badge/Fastify-000000?style=for-the-badge&logo=fastify&logoColor=white)
+![Prisma](https://img.shields.io/badge/Prisma-2D3748?style=for-the-badge&logo=prisma&logoColor=white)
+![SQLite](https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+
 </div>
 
-<br>
+---
 
-## Про проект
-Цей проект розроблено як навчальний симулятор казино з клієнт-серверною архітектурою.
+# 🎲 Про проект
 
-## Головні фічі
-- **Чесна математика:** Використовується алгоритм ГВЧ на базі генераторів для прокрутки слотів.
-- **Система балансу:** Відстеження поточного рахунку гравця, який зберігається в пам'яті сервера [безстанова архітектура].
-- **Система "Додепу":** Інтерактивна можливість отримати безкоштовні монети (+500) для продовження гри.
-- **Швидкий бекенд:** Серверну частину побудовано на сучасному фреймворку **Fastify**.
-- **Кастомний UI:** Анімації слотів, панель швидких ставок (+25, +50, +75) та діалогове вікно з персонажем.
+Цей проект розроблено як комплексна курсова робота. Він демонструє навички побудови повноцінного Fullstack-додатку: від верстки неонового інтерфейсу та компіляції клієнтського TypeScript до налаштування ORM та JWT-авторизації на сервері.
 
-## Як запустити локально
+---
 
-1. **Клонуй репозиторій:**
-`git clone https://github.com/spanoproandrei2245-bit/anime-casino`
+# 🎓 Інтеграція лабораторних робіт
 
-2. **Перейди в папку з проектом:**
-`cd anime-casino`
+У проекті успішно імплементовано та пов'язано між собою теми з лабораторних робіт курсу:
 
-3. **Встанови залежності:**
-`npm install`
+1. **Асинхронне програмування**  
+   Кастомні функції `asyncMapCallback` та `asyncMapPromise` (`src/asyncTasks.ts`) для паралельної обробки даних (наприклад, визначення VIP-статусу користувачів).
 
-4. **Запусти сервер у режимі розробки:**
-`npm run dev`
+2. **Структури даних**  
+   Реалізовано клас `PriorityQueue` (`src/queue.ts`) для черги обробки тікетів техпідтримки за пріоритетом.
 
-5. **Відкрий браузер за адресою:** 
-`http://localhost:3000`
+3. **Декоратори**  
+   Створено декоратор `@Log` (`src/logger.ts`, `src/engine.ts`), який логує час виконання методів та їх аргументи (наприклад, при розрахунку виграшу в рушії гри).
 
-## Структура проекту
-- `public/` - Фронтенд (HTML, CSS, JS) та тимчасово фото
-- `src/` - Бекенд на TypeScript (Fastify сервер, API-маршрути)
-- `package.json` - Залежності та скрипти проекту
+4. **Патерн кешування (мемоізація)**  
+   Написана функція `memoizeWithTimeout` (`src/utils.ts`) для оптимізації та кешування результатів запиту ТОП-10 гравців бази даних.
 
-## Автор
-**Спано Андрій Олександрович** - Студент **ФІОТ**, група **ІМ-52**
+5. **Генератори (Generators)**  
+   Використовується функція `createInfiniteReel` (`src/server.ts`) для безкінечної генерації символів під час гри в слоти.
+
+6. **Потоки (Streams)**  
+   Метод `generateDataStream` (`src/server.ts`) дозволяє завантажувати таблицю лідерів у форматі `.csv` за допомогою потокової передачі даних (`Readable stream`).
+
+7. **Події (EventEmitter)**  
+   Створено `casinoEvents` (`src/server.ts`) для асинхронного відстеження та логування глобальних подій (наприклад, зрив джекпоту або депозит).
+
+---
+
+# ✨ Головні фічі
+
+## 🎰 Неонові слоти
+- Серверна генерація випадкових чисел
+- Система множників виграшу
+- Анімації результатів
+- Неоновий стиль інтерфейсу
+
+## 🃏 Блекджек
+- Гра проти дилера
+- Класичні правила
+- Перебір, нічия, подвоєння виграшу
+
+## 🔐 Система акаунтів
+- Реєстрація та авторизація
+- `bcryptjs` для хешування паролів
+- JWT-токени
+- Захист API-роутів
+
+## 💸 Економіка та баланс
+- Надійне збереження балансу
+- Інтерактивний "Додеп" (+500 💸)
+
+## 🏆 Таблиця лідерів
+- ТОП-10 найбагатших гравців
+- Експорт у `.csv`
+
+## 🎨 UI/UX
+- Кастомний неоновий дизайн
+- Панель швидких ставок
+- Симетричний адаптивний інтерфейс
+
+---
+
+# 🛠 Стек технологій
+
+## Frontend
+- HTML5
+- CSS3
+- TypeScript
+- Vanilla JavaScript
+
+## Backend
+- Node.js
+- Fastify
+- TypeScript
+
+## Database
+- SQLite
+- Prisma ORM
+
+---
+
+# 🚀 Як запустити локально
+
+## 1. Підготовка
+
+Переконайся, що встановлені:
+- Node.js
+- Git
+
+---
+
+## 2. Встановлення
+
+Клонуй репозиторій:
+
+```bash
+git clone https://github.com/spanoproandrei2245-bit/anime-casino.git
+cd anime-casino
