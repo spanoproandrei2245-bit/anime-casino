@@ -155,7 +155,7 @@ npm run dev
 Після запуску відкрий:
 
 ```bash
-npm run dev
+http://localhost:3000
 ```
 
 - - -
