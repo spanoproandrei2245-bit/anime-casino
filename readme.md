@@ -118,3 +118,59 @@
 ```bash
 git clone https://github.com/spanoproandrei2245-bit/anime-casino.git
 cd anime-casino
+```
+
+Встанови залежності:
+
+```bash
+npm install
+```
+
+--- 
+
+## 3. Налаштування бази даних та фронтенду
+
+Згенеруй SQLite базу даних:
+
+```bash
+npx prisma db push
+```
+
+Скомпілюй TypeScript фронтенду:
+
+```bash
+npm run build:front
+```
+
+- - -
+
+## 4. Запуск сервера
+
+Запуск у режимі розробки:
+
+```bash
+npm run dev
+```
+
+Після запуску відкрий:
+
+```bash
+npm run dev
+```
+
+- - -
+
+## 📁 Структура проекту
+
+```bash
+public/      — Статичні файли фронтенду
+public/ts/   — TypeScript логіка клієнта
+src/         — Backend, сервер, ігрова логіка
+prisma/      — Prisma schema
+```
+- - -
+
+## 👨‍💻 Автор
+
+Спано Андрій Олександрович
+Студент ФІОТ, група ІМ-52
