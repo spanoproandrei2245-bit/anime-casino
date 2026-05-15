@@ -490,3 +490,24 @@ button#spin-btn:disabled { background: #555; cursor: not-allowed; }
 .bj-btn:disabled { background: #444 !important; box-shadow: none; transform: none; }
 
 .bj-controls-area .message { font-size: 1.2rem; font-weight: 700; margin-top: 15px; text-align: center; width: 100%; height: 30px; }
+
+/* Слотів-специфічні стилі (ФІКС ТЕКСТУ) */
+.slots-container {
+    width: 60% !important; 
+    padding: 30px !important;
+}
+
+.game-panel.bj-full-panel.slots-container .bj-row-header {
+    justify-content: flex-start !important;
+    gap: 15px !important;
+}
+
+.game-panel.bj-full-panel.slots-container .bj-text-title {
+    font-size: 1.5rem !important; 
+    width: auto !important;
+}
+
+.game-panel.bj-full-panel.slots-container .bj-text-balance {
+    font-size: 1.1rem !important;
+    width: auto !important;
+}
