@@ -491,7 +491,6 @@ button#spin-btn:disabled { background: #555; cursor: not-allowed; }
 
 .bj-controls-area .message { font-size: 1.2rem; font-weight: 700; margin-top: 15px; text-align: center; width: 100%; height: 30px; }
 
-/* Слотів-специфічні стилі (ФІКС ТЕКСТУ) */
 .slots-container {
     width: 60% !important; 
     padding: 30px !important;
